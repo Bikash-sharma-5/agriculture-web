@@ -1,0 +1,2 @@
+#!/bin/bash
+docker exec -i java-app-69b959 java "$@"

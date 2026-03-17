@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  workspace-69b959:
+    image: dev-workspace
+    pull_policy: never
+    container_name: workspace-core-69b959
+    working_dir: /workspace
+    tty: true
+    stdin_open: true
+    ports:
+      - '9003:8080'
+      - '10003:3000'
+    volumes:
+      - >-
+        D:/cloud-dev-platform/server/workspaces/69b959bbc688191407b8533c/69b93ba30235c7dc4679694d:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - cloud-net
+    command: code-server --bind-addr 0.0.0.0:8080 --auth none /workspace
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+  java-app-69b959:
+    image: eclipse-temurin:17-jdk-alpine
+    container_name: java-app-69b959
+    working_dir: /workspace
+    volumes:
+      - >-
+        D:/cloud-dev-platform/server/workspaces/69b959bbc688191407b8533c/69b93ba30235c7dc4679694d:/workspace
+    command: tail -f /dev/null
+    networks:
+      - cloud-net
+networks:
+  cloud-net:
+    external: true
